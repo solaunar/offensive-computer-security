@@ -9,7 +9,7 @@ root = logging.getLogger()
 root.setLevel(logging.INFO)
 
 # Get camera IP & mac
-camera_ip = "192.168.1.12"
+camera_ip = "192.168.1.14"
 camera_mac = getmacbyip(camera_ip)
 logging.info('Camera IP Address: {address}.'.format(address = camera_ip))
 logging.info('Camera MAC Address: {address}.'.format(address = camera_mac))
