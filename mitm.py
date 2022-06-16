@@ -21,6 +21,7 @@ while True:
         while forwarding:
             rcvpkt = sniff(count = 1, filter = filterbase)
             rcvpkt.summary()
+            pkt = rcvpkt
             if hacking:
                 if rcvpkt.haslayer(UDP) and rcvpkt.sport >= 40000:
                     pkt = rcvpkt[UDP]
@@ -55,7 +56,7 @@ while True:
                     chksum = in4_chksum(socket.IPPROTO_UDP, pktchk[IP],udpRaw)
 
                     pkt[UDP].chksum = chksum # New checksum
-            sendp(rcvpkt)
+            sendp(pkt)
     except KeyboardInterrupt:
         ans = ""
         exit = False
