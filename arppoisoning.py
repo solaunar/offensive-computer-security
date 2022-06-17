@@ -9,7 +9,7 @@ import logging
 root = logging.getLogger()
 root.setLevel(logging.DEBUG)
 
-suspendTimeInSeconds =1
+suspendTimeInSeconds = 1
 
 """
 Function that retrieves the MAC address by IP of a device (retries in case the tries fail).
@@ -94,11 +94,34 @@ def main():
 
     # do not hardcode cameraip, because it might reset, ideally create script to prevent reset packets from the camera
 	# possible defense mechanism there
-	targetip = "192.168.1.15"
+	targetip = ""
+	while (True):
+		targetip = input("Please provide the target device IP: ")
+		try: 
+			socket.inet_aton(targetip)
+			break
+		except:
+			continue
 
 	# Victim Computer. Might be the Gateway, might be another device.
 	#targetip= conf.route.route("0.0.0.0")[2] # -> Gateway Router
-	cameraip = "192.168.1.3" # -> Example Device. This would need to be gathered from
+	cameraip = ""
+	while (True):
+		cameraip = input("Please provide the camera IP: ")
+		try:
+			socket.inet_aton(cameraip)
+			break
+		except:
+			continue
+
+	while (True):
+		suspendTimeInSeconds = int(input("Please provide suspend time in seconds (every how many seconds poisoning will happen): "))
+		if (suspendTimeInSeconds < 1 or suspendTimeInSeconds > 60):
+			print("Suspend time should not be less than 1 second and more than 60 seconds")
+			suspendTimeInSeconds = int(input("Please provide suspend time in seconds (every how many seconds poisoning will happen): "))
+		else:
+			break
+
 
 	execute(cameraip, targetip, attackerip, attackermac)
 
