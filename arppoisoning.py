@@ -94,25 +94,11 @@ def main():
 
     # do not hardcode cameraip, because it might reset, ideally create script to prevent reset packets from the camera
 	# possible defense mechanism there
-	targetip = ""
-	while (True):
-		targetip = input("Please provide the target device IP: ")
-		try: 
-			socket.inet_aton(targetip)
-			break
-		except:
-			continue
+	targetip = getIpFromInput("target device")
 
 	# Victim Computer. Might be the Gateway, might be another device.
 	#targetip= conf.route.route("0.0.0.0")[2] # -> Gateway Router
-	cameraip = ""
-	while (True):
-		cameraip = input("Please provide the camera IP: ")
-		try:
-			socket.inet_aton(cameraip)
-			break
-		except:
-			continue
+	cameraip = getIpFromInput("camera")
 
 	while (True):
 		suspendTimeInSeconds = int(input("Please provide suspend time in seconds (every how many seconds poisoning will happen): "))
@@ -126,6 +112,16 @@ def main():
 	execute(cameraip, targetip, attackerip, attackermac)
 
 
+def getIpFromInput(devicename):
+	ip = ""
+	while (True):
+		ip = input("Please provide the {} IP: ".format(devicename))
+		try:
+			socket.inet_aton(ip)
+			break
+		except:
+			continue
+	return ip
 
 
 if __name__=="__main__":
