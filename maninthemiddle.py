@@ -19,7 +19,7 @@ def main():
     while True: 
         if rst:
             rcvpkt = sniff(count = 1, filter = filterbase)
-            if (rcvpkt[0][IP].src == cameraip):
+            if (rcvpkt[0][IP].src == cameraip and rcvpkt[0][IP].dst == deviceip):
                 rcvpkt[TCP].flags = 'R'
                 sendp(rcvpkt)
                 rst = False
